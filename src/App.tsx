@@ -1,14 +1,14 @@
-import "./App.css";
+import { Home } from "./components/Home";
 
 function App() {
   return (
-    <>
-      <div>
-        <h1 className="mx-auto text-center text-3xl font-bold text-pink-500">
-          Testing Tailwind
-        </h1>
+    <main className="flex h-screen items-center justify-center bg-blue-200">
+      <div className="m-auto h-full max-h-96 max-w-screen-md flex-1">
+        <div className="h-full w-full rounded-3xl bg-white p-8 shadow-lg">
+          <Home />
+        </div>
       </div>
-    </>
+    </main>
   );
 }
 

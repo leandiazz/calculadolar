@@ -1,57 +1,91 @@
 import { useState, useEffect } from "react";
 import { Form } from "./Form";
+import { DolarItem } from "./DolarItem";
+import { Dolar } from "../types/types";
+
+const defaulValues: Dolar[] = [
+  {
+    casa: "oficial",
+    compra: 348.96,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Oficial",
+    venta: 368.6,
+  },
+  {
+    casa: "blue",
+    compra: 980,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Blue",
+    venta: 1000,
+  },
+  {
+    casa: "bolsa",
+    compra: 867.32,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Bolsa",
+    venta: 878.93,
+  },
+  {
+    casa: "contadoconliqui",
+    compra: 861.78,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Contado con liquidación",
+    venta: 899.4,
+  },
+  {
+    casa: "solidario",
+    compra: null,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Solidario (Turista)",
+    venta: 639.63,
+  },
+  {
+    casa: "mayorista",
+    compra: 349.1,
+    fechaActualizacion: "2023-10-26T13:55:00.000Z",
+    moneda: "USD",
+    nombre: "Mayorista",
+    venta: 350.1,
+  },
+];
 
 export const Home = () => {
-  const [cotizaciones, setCotizaciones] = useState([]);
+  const [cotizaciones, setCotizaciones] = useState(defaulValues);
   const [amount, setAmount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://dolarapi.com/v1/dolares")
       .then((response) => response.json())
-      .then((data) => setCotizaciones(data));
+      .then((data) => {
+        console.log(data);
+        setCotizaciones(data);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
   }, []);
 
+  if (loading) {
+    return <h1 className="text-center text-2xl">cargando dolares....</h1>;
+  }
   return (
-    <>
-      <main className="grid gap-8">
-        <section>
-          <Form
-            value={amount}
-            onChange={(_amount: number) => setAmount(_amount)}
-          />
-        </section>
-        <section className="flex-2 rounded-xl bg-blue-400 p-8 text-white">
-          <ul className="flex flex-col gap-4">
-            {cotizaciones.map((D) => {
-              const total = amount ? Number(amount / D.venta) : D.venta;
-              return (
-                <li
-                  key={D.nombre}
-                  className="flex items-center justify-between gap-4"
-                >
-                  <div className="text-blue-100">{D.nombre}</div>
-                  <div className="flex items-center gap-4">
-                    {amount ? (
-                      <div className="text-xl font-bold text-blue-700">
-                        {total.toLocaleString("es-AR", {
-                          style: "currency",
-                          currency: "ARS",
-                        })}
-                      </div>
-                    ) : null}
-                    <div className="text-3xl font-bold text-blue-600">
-                      {D.venta.toLocaleString("es-AR", {
-                        style: "currency",
-                        currency: "ARS",
-                      })}
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      </main>
-    </>
+    <main className="grid gap-8">
+      <section>
+        <Form setAmount={setAmount} />
+      </section>
+      <section className="flex-2 rounded-xl bg-blue-400 p-8 text-white">
+        <ul className="flex flex-col gap-4">
+          {cotizaciones.map((D) => {
+            const total = amount ? Number(amount / D.venta) : D.venta;
+            return <DolarItem D={D} amount={amount} total={total} />;
+          })}
+        </ul>
+      </section>
+    </main>
   );
 };

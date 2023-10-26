@@ -70,9 +70,6 @@ export const Home = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return <h1 className="text-center text-2xl">cargando dolares....</h1>;
-  }
   return (
     <main className="grid gap-8">
       <section>
@@ -82,7 +79,14 @@ export const Home = () => {
         <ul className="flex flex-col gap-4">
           {cotizaciones.map((D) => {
             const total = amount ? Number(amount / D.venta) : D.venta;
-            return <DolarItem D={D} amount={amount} total={total} />;
+            return (
+              <DolarItem
+                D={D}
+                amount={amount}
+                total={total}
+                loading={loading}
+              />
+            );
           })}
         </ul>
       </section>

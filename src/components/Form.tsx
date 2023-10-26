@@ -12,7 +12,12 @@ export const Form = ({
   };
 
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
+    <form
+      className="w-full"
+      onSubmit={handleSubmit}
+      role="form"
+      aria-label="calculate amount of dollars based on your pesos quantity"
+    >
       <span className="text-xl">Monto en ARS:</span>
       <label className="flex">
         <input
@@ -20,6 +25,7 @@ export const Form = ({
           type="number"
           name="pesos"
           id="pesos"
+          role="textbox"
         />
         <button className="rounded-md bg-blue-400 p-2">Convertir</button>
       </label>

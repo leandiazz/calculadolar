@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form } from "./Form";
 import { DolarItem } from "./DolarItem";
 import { Dolar } from "../types/types";
+import { useSEO } from "../hooks/useSEO";
 
 const defaulValues: Dolar[] = [
   {
@@ -58,6 +59,11 @@ export const Home = () => {
   const [cotizaciones, setCotizaciones] = useState(defaulValues);
   const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  useSEO({
+    title: `$${amount} Pesos a dolares`,
+    description: "calcula la cantidad de dolares que valen tus pesos",
+  });
 
   useEffect(() => {
     fetch("https://dolarapi.com/v1/dolares")

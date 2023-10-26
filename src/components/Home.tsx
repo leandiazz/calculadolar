@@ -61,7 +61,7 @@ export const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useSEO({
-    title: `$${amount} Pesos a dolares`,
+    title: `$${amount} Pesos a USD`,
     description: "calcula la cantidad de dolares que valen tus pesos",
   });
 

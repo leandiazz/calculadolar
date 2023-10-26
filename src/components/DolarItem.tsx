@@ -36,7 +36,7 @@ export const DolarItem = ({
 
             {loading ? null : (
               <p className="text-xs">
-                Compra
+                Compra{" "}
                 {D.compra
                   ? D.compra.toLocaleString("es-AR", {
                       style: "currency",

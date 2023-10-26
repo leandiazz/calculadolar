@@ -3,20 +3,16 @@ import { screen, render } from "@testing-library/react";
 import { Home } from "../components/Home";
 import { userEvent } from "@testing-library/user-event";
 import App from "../App";
-import { list } from "postcss";
 
 // test 1
-/*
 describe("<App />", () => {
   test("should work", () => {
     render(<Home />);
     expect(screen.getByText("cargando dolares....")).toBeDefined();
   });
 });
-*/
 
 // test 2
-/*
 describe("<App />", () => {
   test("should add a number to the input", async () => {
     const user = userEvent.setup();
@@ -39,4 +35,3 @@ describe("<App />", () => {
     await user.click(button!);
   });
 });
-*/

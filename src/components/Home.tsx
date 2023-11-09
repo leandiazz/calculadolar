@@ -69,7 +69,6 @@ export const Home = () => {
     fetch("https://dolarapi.com/v1/dolares")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setCotizaciones(data);
       })
       .catch((e) => console.log(e))
